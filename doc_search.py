@@ -16,7 +16,7 @@ def invoke_llm(prompt):
     return response.choices[0].message.content.strip()
 
 def load_data(data):
-    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.create_documents(data)
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)

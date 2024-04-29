@@ -18,16 +18,15 @@ def main():
             for file in uploaded_files:
                 file_content = file.read().decode()
                 st.session_state['loaded_files'].append(file_content)
-                st.write(f"Loaded {len(file_content)} characters from {file.name}.")
+                st.write(f"{file.name} loaded successfully")
 
             st.session_state['retriever'] = doc_search.load_data(st.session_state['loaded_files'])
-            st.write(f"{file.name} loaded successfully")
 
     # Search bar
     search_query = st.text_input("Enter your search query")
 
     #Threshold for similarity search
-    threshold = st.slider('Select threshold for similarity search',0.0, 1.0)
+    threshold = st.slider('Select threshold for similarity search',0.0, 1.0, value=0.50)
     st.write('Threshold:', threshold)
 
     # Search button
