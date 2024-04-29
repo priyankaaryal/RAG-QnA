@@ -1,5 +1,4 @@
 from openai import OpenAI
-from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
@@ -13,13 +12,14 @@ def load_data(data):
 
     return db
 
-def answer_query(retriever, query):
+def answer_query(retriever, query, threshold):
     relevant_answers = []
 
     for answer in retriever.similarity_search_with_score(query)[:3]:
         rel_answer = answer[0]
         score = answer[1]
-        relevant_answers.append((rel_answer, score))
+        if score <= threshold:
+            relevant_answers.append((rel_answer, score))
 
         print("Answer: ", answer)
         print("Similarity Score: ", score)
