@@ -1,8 +1,5 @@
 import streamlit as st
-
-def load_data(file):
-    print(f"{file.name} loaded")
-    return NotImplementedError
+import doc_search
 
 def main():
     loaded_files = []
@@ -16,14 +13,14 @@ def main():
     if st.button("Load Data"):
         if uploaded_files is not None:
             for file in uploaded_files:
-                 load_data(file)
+                 retriever = doc_search.load_data(file)
 
     # Search bar
     search_query = st.text_input("Enter your search query")
 
     # Search button
     if st.button("Search"):
-        return NotImplementedError
+        print(doc_search.answer_query(retriever, search_query))
 
 if __name__ == "__main__":
     main()

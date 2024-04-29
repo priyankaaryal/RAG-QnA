@@ -1,1 +1,7 @@
 streamlit
+openai
+textloader
+langchain
+langchain-text-splitters
+langchain-openai
+langchain-chroma
