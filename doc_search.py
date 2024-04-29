@@ -4,15 +4,13 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 
-def load_data(filename):
-    loader = TextLoader(filename)
-    data = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    docs = text_splitter.split_documents(data)
+def load_data(data):
+    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+    docs = text_splitter.create_documents(data)
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(docs, embeddings)
-    #print(f"{filename.name} loaded")
-    print(filename, "loaded")
+    print("Data loaded successfully")
+
     return db
 
 def answer_query(retriever, query):
