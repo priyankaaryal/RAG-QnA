@@ -30,8 +30,6 @@ def main():
     threshold = st.slider('Select threshold for similarity search',0.0, 1.0)
     st.write('Threshold:', threshold)
 
-    #Choose different similarity searcged
-
     # Search button
     if st.button("Search"):
         if st.session_state['retriever'] and search_query:
