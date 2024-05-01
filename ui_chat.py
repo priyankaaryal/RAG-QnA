@@ -1,6 +1,7 @@
 import streamlit as st
 
 import doc_search
+import file_parsing
 
 st.title("Document Search App")
 
@@ -18,11 +19,11 @@ uploaded_files = st.file_uploader("Upload file/files", accept_multiple_files=Tru
 # Load the data from files
 if st.button("Load Data"):
     if uploaded_files:
-        for file in uploaded_files:
+        for uploaded_file in uploaded_files:
             # todo: read one file at a time
-            file_content = file.read().decode()
+            file_content = file_parsing.extract_full_text(uploaded_file)
             st.session_state['loaded_files'].append(file_content)
-            st.write(f"{file.name} loaded successfully")
+            st.write(f"{uploaded_file.name} loaded successfully")
 
         st.session_state['retriever'] = doc_search.load_data(st.session_state['loaded_files'])
     else:
