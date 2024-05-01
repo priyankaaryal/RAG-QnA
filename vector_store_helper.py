@@ -29,7 +29,7 @@ class VectorStoreHelper:
             query_embedding: List[float],
             top_n: int = 3,
             surrounding_chunks: int = 0
-    ) -> Tuple[List[str], List[str]]:
+    ) -> Tuple[List[str], List[str], List[str]]:
         results = self.collection.query(
             query_embeddings=[query_embedding], n_results=top_n
         )
@@ -40,4 +40,4 @@ class VectorStoreHelper:
                 if 0 <= context_id < self.n_docs:
                     context_ids_to_retrieve.append(str(context_id))
         retrieved_results = self.collection.get(ids=context_ids_to_retrieve)
-        return retrieved_results["ids"], retrieved_results["documents"]
+        return retrieved_results["ids"], retrieved_results["documents"], retrieved_results["metadatas"]

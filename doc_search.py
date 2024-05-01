@@ -1,6 +1,7 @@
+from typing import Any
+
 import streamlit as st
 from openai import OpenAI
-from langchain.text_splitter import CharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 import os
 
@@ -12,7 +13,6 @@ client = OpenAI(
 embedder = OpenAIEmbeddings()
 
 OPENAI_MODEL = "gpt-3.5-turbo"
-SINGLE_QUERY_PROMPT = "Based on the given query and the relevant answers, choose the best suiting answer for the query for the user and reword it so the answer is coherent. DO NOT add any other information to the answer."
 
 
 def invoke_llm(prompt: str) -> str:
@@ -23,39 +23,26 @@ def invoke_llm(prompt: str) -> str:
     return response.choices[0].message.content.strip()
 
 
-def load_data(data: list[str]) -> VectorStoreHelper:
-    # todo: have some rationale behind chunk size
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    docs = [doc.page_content for doc in text_splitter.create_documents(data)]
-    db = VectorStoreHelper()
-    embeddings = embedder.embed_documents(texts=docs)
-    db.add_embeddings_to_collection(documents=docs, embeddings=embeddings)
-    print("Data loaded successfully")
-
-    return db
-
-
-def answer_single_query(retriever: VectorStoreHelper, query: str, threshold: float) -> str:
-    doc_ids, docs = retriever.query_collection(embedder.embed_query(query))
+def answer_chat_query(retriever: VectorStoreHelper, messages: list[dict[str, str]]) -> list[Any] | str:
+    doc_ids, docs, metadatas = retriever.query_collection(embedder.embed_query(messages[-1]["content"]))
     print(doc_ids)
     print(docs)
-
-    prompt = SINGLE_QUERY_PROMPT + f"\n Query: {query} \n Answers: {docs}"
-    final_answer = invoke_llm(prompt)
-
-    return final_answer
-
-
-def answer_chat_query(retriever, messages):
-    doc_ids, docs = retriever.query_collection(embedder.embed_query(messages[-1]["content"]))
-    print(doc_ids)
-    print(docs)
+    print(metadatas)
+    context = [f"----\nContext Chunk: {doc}\nfile_name: {metadata['document_name']}\nchunk_id: {metadata['chunk_id']}\n----\n" for doc, metadata in zip(docs, metadatas)]
     messages[0]["content"] = f"""You are RAG-GPT. 
         All your answers should be based on the context between the <context></context> tags below. 
         DO NOT add any other information to the answer. Never offer to search beyond the confines of your knowledge.
+        If and only if the answer is in the context below, you must output the document name and chunk ID used for your answer at the end in the following format:
         
+        ----
+        
+        File Name: file_name of the relevant context chunk
+        
+        Chunk ID: chunk_id
+        
+        ----
         <context>
-        {docs}
+        {context}
         </context>"""
     with st.chat_message("assistant"):
         stream = client.chat.completions.create(
