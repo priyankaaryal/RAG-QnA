@@ -3,7 +3,9 @@
 ## Description
 The Document Search App allows users to upload their documents and query specific information within those documents. It provides a chat-based web interface, powered by RAG, enabling users to upload a file, parse it, and ask questions relevant to the documents. 
 
-With the help of ChromaDB, the application stores embeddings and relevant metadata and performs vector searches to retrieve relevant documents effectively. It utilizes GPT to refine answers, recontextualize user queries to align with the entire conversation, and provide accurate responses to queries.
+With the help of ChromaDB, the application stores embeddings and relevant metadata and performs vector searches to retrieve relevant documents effectively. It utilizes GPT-4 Turbo to refine answers, recontextualize user queries to align with the entire conversation, and provide accurate responses to queries.
+
+You can view the deployed app on Streamlit Cloud here: [Document_Search_App](https://xmentiumproject-priyanka-aryal.streamlit.app/)
 
 ## Installation
 To get started with this project, you need to install the required Python packages. Run the following command in your terminal:
@@ -11,6 +13,14 @@ To get started with this project, you need to install the required Python packag
 pip install -r requirements.txt
 ```
 *Note: Python version 3.10 was used to develop this app.*
+
+### Environment Variable
+
+This app uses OpenAI API. In order to set the environment variable, run the command:
+
+```commandline
+export OPENAI_API_KEY="your_api_key"
+```
 
 ## Usage
 To run the project after installing the dependencies, navigate to the project directory and run the streamlit command:
@@ -29,7 +39,7 @@ This section details the step-by-step approach and methodologies used in the dev
 
 **Vector Search Implementation:** Developed the core functionality of vector search, storing embedded chunks of uploaded documents in ChromaDB, and executing a similarity search to identify the top n relevant documents.
 
-**Language Model:** Employed a language model (GPT) to improve the coherence of answers and to select the best response from the top n documents extracted from the similarity search.
+**Language Model:** Employed a language model (GPT-4 Turbo) to improve the coherence of answers and to select the best response from the top n documents extracted from the similarity search.
 
 **UI and Logic Integration:** Integrated the UI web app with the backend vector search and language model logic to ensure seamless operation between the frontend and backend components.
 
