@@ -1,4 +1,3 @@
-Page 1
 Pasta Carbonara
 
 Ingredients:
@@ -18,7 +17,6 @@ Season with black pepper and serve immediately, garnished with additional grated
 
 ---
 
-Page 2
 Chocolate Cake
 Ingredients:
 1 and 3/4 cups all-purpose flour
@@ -41,6 +39,8 @@ Bake for 30 to 35 minutes or until a toothpick inserted into the center comes ou
 Remove from oven and allow cakes to cool in the pans for about 10 minutes, then turn out onto a wire rack to cool completely.
 Frost with your choice of chocolate frosting when completely cooled.
 
+---
+
 Dal Bhat (Lentil Stew)
 Ingredients:
 1 cup split red lentils
@@ -61,8 +61,6 @@ Add chopped tomato and cook until soft. Pour this mixture into the cooked lentil
 Serve hot over cooked basmati rice, accompanied by a side of pickled vegetables or fresh slices of lime.
 
 ---
-
-Page 3
 
 Mushroom Risotto
 Cook arborio rice with mushrooms and onions in chicken broth, stirring continuously. Add Parmesan cheese before serving.
@@ -96,9 +94,10 @@ Season with salt and pepper to taste and serve hot over steamed rice or noodles.
 
 ---
 
-Page 4
 Tomato Soup
 Simmer chopped tomatoes, onion, and chicken broth. Blend until smooth. Season with basil and cream.
+
+---
 
 Sel Roti (Traditional Nepali Rice Doughnut)
 Ingredients:
@@ -117,13 +116,13 @@ Squeeze the batter in a circular motion into the hot oil to form ring shapes.
 Fry until golden brown on both sides, then remove with a slotted spoon and drain on paper towels.
 Serve warm or at room temperature.
 
+---
 
 Grilled Cheese Sandwich
 Butter bread slices, place cheese between them. Grill on both sides until golden brown.
 
 ---
 
-Page 5
 Momo (Nepali Dumplings)
 Ingredients:
 For the dough:
@@ -152,30 +151,5 @@ Divide the dough into small balls. Roll each ball into a thin circle. Place a sp
 Steam the momos for about 10 minutes or until the dough is firm and glossy.
 For the sauce, heat oil in a pan, add cumin seeds, and let them sizzle. Add tomatoes, turmeric, chili powder, and salt. Cook until tomatoes are soft and the sauce is thick.
 Serve momos hot with the tomato sauce.
-
----
-
-Page 6
-
-
----
-
-Page 7
-
-
----
-
-Page 8
-
-
----
-
-Page 9
-
-
----
-
-Page 10
-
 
 ---

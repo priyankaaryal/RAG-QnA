@@ -1,4 +1,3 @@
-Page 1
 Beef Stew
 Ingredients:
 2 pounds beef chuck, cut into 1-inch cubes
@@ -25,7 +24,6 @@ Add carrots and potatoes to the pot. Cook for another 30 minutes, or until veget
 Remove bay leaves and adjust seasoning with salt and pepper before serving.
 
 --------
-Page2
 Chicken Salad
 Ingredients:
 2 cups cooked chicken, shredded
@@ -45,8 +43,9 @@ Pour the dressing over the chicken mixture and toss to coat evenly.
 Season with salt and pepper to taste.
 Chill in the refrigerator for at least one hour to blend the flavors.
 Serve on a bed of lettuce leaves.
+
 --------
-Page3
+
 Fish Tacos
 Ingredients:
 1 pound white fish fillets (such as cod or tilapia)
