@@ -28,16 +28,18 @@ class VectorStoreHelper:
             self,
             query_embedding: List[float],
             top_n: int = 3,
-            surrounding_chunks: int = 0
-    ) -> Tuple[List[str], List[str], List[str]]:
+            surrounding_docs: int = 0
+    ) -> List[Tuple[str, str, dict[str, str]]]:
         results = self.collection.query(
             query_embeddings=[query_embedding], n_results=top_n
         )
         retrieved_ids = [int(i) for i in results["ids"][0]]
-        context_ids_to_retrieve = []
+        context_ids_to_retrieve = set()
         for id_int in retrieved_ids:
-            for context_id in range(id_int - surrounding_chunks, id_int + surrounding_chunks + 1):
+            for context_id in range(id_int - surrounding_docs, id_int + surrounding_docs + 1):
                 if 0 <= context_id < self.n_docs:
-                    context_ids_to_retrieve.append(str(context_id))
+                    context_ids_to_retrieve.add(str(context_id))
+        context_ids_to_retrieve = list(context_ids_to_retrieve)
         retrieved_results = self.collection.get(ids=context_ids_to_retrieve)
-        return retrieved_results["ids"], retrieved_results["documents"], retrieved_results["metadatas"]
+        retrieved_results = zip(retrieved_results["ids"], retrieved_results["documents"], retrieved_results["metadatas"])
+        return sorted(retrieved_results, key=lambda x: int(x[0]))

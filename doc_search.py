@@ -13,6 +13,7 @@ client = OpenAI(
 embedder = OpenAIEmbeddings()
 
 OPENAI_MODEL = "gpt-3.5-turbo"
+# OPENAI_MODEL = "gpt-4-turbo"
 
 
 def invoke_llm(prompt: str) -> str:
@@ -24,23 +25,26 @@ def invoke_llm(prompt: str) -> str:
 
 
 def answer_chat_query(retriever: VectorStoreHelper, messages: list[dict[str, str]]) -> list[Any] | str:
-    doc_ids, docs, metadatas = retriever.query_collection(embedder.embed_query(messages[-1]["content"]))
-    print(doc_ids)
-    print(docs)
-    print(metadatas)
-    context = [f"----\nContext Chunk: {doc}\nfile_name: {metadata['document_name']}\nchunk_id: {metadata['chunk_id']}\n----\n" for doc, metadata in zip(docs, metadatas)]
-    messages[0]["content"] = f"""You are RAG-GPT. 
+    query_embedding = embedder.embed_query(messages[-1]["content"])
+    retrieved_results = retriever.query_collection(query_embedding, top_n=5, surrounding_docs=1)
+    print(retrieved_results)
+    context = [f"----\nContext Page Start\nfile_name: {metadata['document_name']}\npage_number: {metadata['chunk_id']}\n{doc}\nContext Page End\n----\n" for _, doc, metadata in retrieved_results]
+    messages[0]["content"] = f"""You are RAG-GPT. You must assist the user with responses that answer their query, based on given context.
         All your answers should be based on the context between the <context></context> tags below. 
-        DO NOT add any other information to the answer. Never offer to search beyond the confines of your knowledge.
-        If and only if the answer is in the context below, you must output the document name and chunk ID used for your answer at the end in the following format:
+        DO NOT add any other information to the answer. Never offer to search beyond the confines of the context given below. Simply say that the answer does not exist in your context.
+        Ensure proper markdown formatting with adequate whitespace and linebreaks.
+        If and only if the answer is in the context below, you must output your answer, the document name and chunk ID used for your answer at the end in the following format.
+        
+        <Your Answer>
         
         ----
         
-        File Name: file_name of the relevant context chunk
+        File Name: <file_name of the relevant context page>
         
-        Chunk ID: chunk_id
+        Page Number: <page_number of the relevant context page>
         
         ----
+        
         <context>
         {context}
         </context>"""
