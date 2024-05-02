@@ -103,6 +103,8 @@ def answer_chat_query(retriever: VectorStoreHelper, messages: list[dict[str, str
         
         Page Number: <page_number of the relevant context page>
         
+        Excerpt: <relevant context where the answer is generated from>
+        
         ----
         
         <context>
