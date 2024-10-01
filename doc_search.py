@@ -13,7 +13,7 @@ client = OpenAI(
 embedder = OpenAIEmbeddings()
 
 # OPENAI_MODEL = "gpt-3.5-turbo"
-OPENAI_MODEL = "gpt-4-turbo"
+OPENAI_MODEL = "gpt-4o"
 
 RECONTEXTUALIZATION_PROMPT = """Please return the last user message in the following chat history (Actual Chat History) so that it is a complete sentence reflecting the context of the previous messages.
 The sentence should make sense on its own and any pronouns should be replaced by the object they're referring to. 
